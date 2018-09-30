@@ -1,7 +1,19 @@
 {% extends "layout.html" %}
+
 {% block title %}
 Concept Search
 {% endblock %}
-{% block content %}
-<p> Home </p>
+
+{% block searchbar %}
+<form action="/search" autocomplete="off">
+    <input type="text" name="query" id="querybar">
+</form>
+{% endblock %}
+
+{% block result_meta_data %}
+{% endblock %}
+
+{% block resultsection %}
+<div id="search_result">
+</div>
 {% endblock %}

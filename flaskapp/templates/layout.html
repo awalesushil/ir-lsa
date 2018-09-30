@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico')}}"/>
         <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='site.css')}}" />
         <script src="{{ url_for('static', filename='site.js')}}"></script>
@@ -13,22 +14,24 @@
             <div id="wrapper">
                 <div id="searchsection">
                     <div id="logo">
-                        <h1> Concept Search </h1>
+                        <h1> 
+                            Concept Search 
+                            <img src="{{ url_for('static', filename='searchicon.png')}}">
+                        </h1>
                     </div>
                     <br>
                     <div id="searchbar">
-                        <form action="/api" autocomplete="off">
-                            <input type="text" name="query" id="querybar" onkeyup="searchQuery();">
-                        </form>
+                        {% block searchbar %}
+                        {% endblock %}
                     </div>
                     <div id="result_meta_data">
-                        
+                        {% block result_meta_data %}
+                        {% endblock %}
                     </div>
                 </div>
                 <div id="resultsection">
-                    <div id="search_result">
-        
-                    </div>
+                    {% block resultsection %}
+                    {% endblock %}
                 </div>
             </div>
             <div id="footer">
