@@ -1,27 +1,52 @@
-.navbar {
-    background-color: lightslategray;
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#wrapper {
+    min-height: 100%;
+    margin-bottom: 50px;
+}
+
+#searchsection{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(228, 228, 228);
+    background: rgb(242, 242, 242);
+}
+
+#searchbar {
+    text-align: center;
+}
+
+#searchbar form input {
+    width: 700px;
+    height: 35px;
     font-size: 1em;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: white;
-    padding: 8px 5px 8px 5px;
 }
 
-.navbar a {
-    text-decoration: none;
-    color: inherit;
+#logo h1 {
+    font-size: 50px;
+    text-align: center;
 }
 
-.navbar-brand {
-    font-size: 1.2em;
-    font-weight: 600;
+#result_meta_data {
+    padding-top: 20px;
+    padding-left: 150px;
 }
 
-.navbar-item {
-    font-variant: small-caps;
-    margin-left: 30px;
+#resultsection {
+    width: 920px;
+    margin: auto;
 }
 
-.body-content {
-    padding: 5px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+#footer {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    height: 20px;
+    width: 100%;
+    background: rgb(242, 242, 242);
+    border-top: 1px solid rgb(228, 228, 228);
+    padding: 10px 100px;
 }
