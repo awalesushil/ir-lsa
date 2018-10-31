@@ -17,10 +17,9 @@ class Config(object):
     txt_dir = os.path.join('data', 'txt')
 
     # intermediate pickles
-    tfidf_path = 'tfidf.p'
-    meta_path = 'tfidf_meta.p'
-    sim_path = 'sim_dict.p'
-    user_sim_path = 'user_sim.p'
+    lsi_path = 'lsi.p'
+    meta_path = 'meta.p'
+    transformer_path = 'transformer.p'
     
     # sql database file
     db_serve_path = 'db2.p' # an enriched db.p with various preprocessing info
@@ -99,4 +98,4 @@ def strip_version(idstr):
 
 # "1511.08198v1" is an example of a valid arxiv id that we accept
 def isvalidid(pid):
-  return re.match('^\d+\.\d+(v\d+)?$', pid)
+    return re.match('^\d+\.\d+(v\d+)?$', pid)
