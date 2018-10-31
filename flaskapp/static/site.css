@@ -50,3 +50,21 @@
     border-top: 1px solid rgb(228, 228, 228);
     padding: 10px 100px;
 }
+
+#paper_title {
+    text-decoration: none;
+    font-size: 22px;
+}
+
+#search_result {
+    padding-top: 10px;
+}
+
+#summary {
+    padding-left: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    max-height: 5.2rem;
+    line-height: 1.7rem;
+}

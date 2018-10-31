@@ -6,7 +6,7 @@ Concept Search
 
 {% block searchbar %}
 <form action="/search" autocomplete="off">
-    <input type="text" name="query" id="querybar">
+    <input type="text" name="query" id="querybar" placeholder="Enter your search query here...">
 </form>
 {% endblock %}
 
@@ -15,5 +15,21 @@ Concept Search
 
 {% block resultsection %}
 <div id="search_result">
+    {% if papers %}
+        <br><br>
+        {% for pid, p in papers.items(): %}
+            <a id="paper_title" href="{{ p['links'][1]['href'] }}" target="_blank">{{ p['title'] }}</a>
+            <br><br>
+            <p id="summary">
+                {{ p['summary'] }}
+            </p>
+            <br>
+            <em>Authors:</em>
+            {% for author in p['authors']: %}
+                <em>{{ author['name'] }},</em>
+            {% endfor %}
+            <br><br>
+        {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}
