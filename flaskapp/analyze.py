@@ -14,11 +14,10 @@ from sklearn.pipeline import Pipeline
 from utils import Config, safe_pickle_dump
 
 seed(1337)
-# max_train = 5000 # max number of tfidf training documents (chosen randomly), for memory efficiency
-# max_features = 5000
 
 # read database
 db = pickle.load(open(Config.db_path, 'rb'))
+trainedpapers = {} # db with papers that were used in training
 
 # read all text files for all papers into memory
 txt_paths, pids = [], []
@@ -34,12 +33,14 @@ for pid,j in db.items():
                 txt_paths.append(txt_path) # todo later: maybe filter or something some of them
                 pids.append(idvv)
                 print("read %d/%d (%s) with %d chars" % (n, len(db), idvv, len(txt)))
+                trainedpapers[pid] = j
             else:
                 print("skipped %d/%d (%s) with %d chars: suspicious!" % (n, len(db), idvv, len(txt)))
     else:
         print("could not find %s in txt folder." % (txt_path, ))
 print("in total read in %d text files out of %d db entries." % (len(txt_paths), len(db)))
-
+print("writing ", Config.trained_path)
+safe_pickle_dump(trainedpapers, Config.trained_path)
 
 # compute tfidf vectors with scikits
 vectorizer = TfidfVectorizer(input='content', 
@@ -62,21 +63,12 @@ def make_corpus(paths):
     yield txt
 
 # train
-#train_txt_paths = list(txt_paths) # duplicate
-#shuffle(train_txt_paths) # shuffle
-#train_txt_paths = train_txt_paths[:min(len(train_txt_paths), max_train)] # crop
 print("training on %d documents..." % (len(txt_paths), ))
 train_corpus = make_corpus(txt_paths)
 svd_transformer = Pipeline([('tfidf', vectorizer), 
                             ('svd', svd_model)])
 svd_matrix = svd_transformer.fit_transform(train_corpus)
 
-# print(vectorizer.vocabulary_)
-print(svd_matrix)
-
-# write full matrix out
-#out = {}
-#out['X'] = svd_matrix # this one is heavy!
 print("writing lsi", Config.lsi_path)
 safe_pickle_dump(svd_matrix, Config.lsi_path)
 
@@ -87,5 +79,6 @@ safe_pickle_dump(svd_transformer, Config.transformer_path)
 out = {}
 out['pids'] = pids # a full idvv string (id and version number)
 out['ptoi'] = { x:i for i,x in enumerate(pids) } # pid to ix in X mapping
+
 print("writing", Config.meta_path)
 safe_pickle_dump(out, Config.meta_path)
