@@ -6,30 +6,49 @@ Concept Search
 
 {% block searchbar %}
 <form action="/search" autocomplete="off">
-    <input type="text" name="query" id="querybar" placeholder="Enter your search query here...">
+    {% if search_query: %}
+        <input type="text" name="query" id="querybar" 
+            value="{{ search_query }}"
+            placeholder="Enter your search query here...">
+    {% else: %}    
+        <input type="text" name="query" id="querybar"
+            placeholder="Enter your search query here...">
+    {% endif %}
 </form>
 {% endblock %}
 
 {% block result_meta_data %}
+    {% if query_time: %}
+        <em style="padding-left: 80px;"> Showing results in {{ query_time }} seconds </em>
+    {% else: %}
+        <em style="padding-left: 80px;"> Showing latest papers fetched from Arxiv </em>
+    {% endif %}
 {% endblock %}
 
 {% block resultsection %}
 <div id="search_result">
-    {% if papers %}
-        <br><br>
-        {% for pid, p in papers.items(): %}
-            <a id="paper_title" href="{{ p['links'][1]['href'] }}" target="_blank">{{ p['title'] }}</a>
-            <br><br>
-            <p id="summary">
-                {{ p['summary'] }}
-            </p>
-            <br>
-            <em>Authors:</em>
-            {% for author in p['authors']: %}
-                <em>{{ author['name'] }},</em>
-            {% endfor %}
-            <br><br>
+    <ul type="none" id="papers">
+        {% for paper in papers: %}
+                <li>
+                    <br><br>
+                    <a id="paper_title" href="{{ paper[1]['links'][1]['href'] }}" target="_blank">{{ paper[1]['title'] }}</a>
+                    <br><br>
+                    <p id="summary">
+                        {{ paper[1]['summary'] }}
+                    </p>
+                    <br>
+                        <em>Authors:</em>
+                        {% for author in paper[1]['authors']: %}
+                            {% if author == paper[1]['authors'][-1]: %}
+                                <em>{{ author['name'] }}</em>
+                            {% else: %}
+                                <em>{{ author['name'] }},</em>
+                            {% endif %}
+                        {% endfor %}
+                    <br>
+                </li>
         {% endfor %}
-    {% endif %}
+    </ul>
+    <div id="loader"></div>
 </div>
 {% endblock %}

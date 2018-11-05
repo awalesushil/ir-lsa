@@ -20,7 +20,9 @@ class Config(object):
     lsi_path = 'lsi.p'
     meta_path = 'meta.p'
     transformer_path = 'transformer.p'
-    
+    trained_path = 'trained.p'
+    ranked_path = 'ranked.p'
+
     # sql database file
     db_serve_path = 'db2.p' # an enriched db.p with various preprocessing info
     database_path = 'as.db'
